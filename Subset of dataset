@@ -1,0 +1,16 @@
+#create a subset
+data(music)
+names(music)
+View(music)
+
+#subset
+summary(music$`Track Score`)
+
+#subset dataset based on track score>250.0
+subset(music,'Track Score'>250.0)
+
+#subset dataset using filter function
+library(dplyr)
+#pipe %>%
+music %>% filter(`Spotify Popularity`>60)-> spotify
+summary(spotify)
