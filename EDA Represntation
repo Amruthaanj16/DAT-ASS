@@ -1,0 +1,21 @@
+library(ggplot2)
+library(ggdist)
+library(ggbeeswarm)
+
+head(music)
+str(music)
+
+ggplot(music, aes(x = `Apple Music Playlist Count`)) +
+  geom_histogram(binwidth = 5) +
+  labs(title = "Histogram of Apple playlist Count",
+       x = "Apple Playlist Count",
+       y = "Count")
+
+ggplot(music, aes(x = `Track Score`, y = `Spotify Popularity`, fill = `Track Score`)) + 
+  geom_boxplot() +
+  stat_summary(fun = "mean", geom = "point", shape = 8,
+               size = 2, color = "white")
+
+ggplot(music, aes(x=`Spotify Streams`)) +  
+  geom_area(stat = "bin", color = "#2bab53", 
+            alpha = 0)
