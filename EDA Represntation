@@ -1,21 +1,31 @@
+# Install and load necessary packages
+library(readxl)
+library(dplyr)
 library(ggplot2)
-library(ggdist)
-library(ggbeeswarm)
+library(magick)
 
-head(music)
-str(music)
+#load the data
+file_path <- "C:\\Users\\ASUS\\Desktop\\bd\\music1.excel.xlsx"
+df <- read_excel(file_path)
+print(head(df))
 
-ggplot(music, aes(x = `Apple Music Playlist Count`)) +
-  geom_histogram(binwidth = 5) +
-  labs(title = "Histogram of Apple playlist Count",
-       x = "Apple Playlist Count",
-       y = "Count")
+ggplot(df, aes(x = `Track Score`)) +
+  geom_histogram(binwidth = 100, fill = "blue", color = "black", alpha = 0.7) +
+  labs(title = "Differences in track score", x = "Track Score", y = "Count")
 
-ggplot(music, aes(x = `Track Score`, y = `Spotify Popularity`, fill = `Track Score`)) + 
-  geom_boxplot() +
-  stat_summary(fun = "mean", geom = "point", shape = 8,
-               size = 2, color = "white")
+ggplot(df, aes(x = `Track Score`, y = `Spotify Popularity`)) +
+  geom_point(color = "blue", alpha = 0.6) +
+  labs(title = "Track Score vs Spotify Popularity", x = "Track Score", y = "Spotify Popularity")
 
-ggplot(music, aes(x=`Spotify Streams`)) +  
-  geom_area(stat = "bin", color = "#2bab53", 
-            alpha = 0)
+ggplot(df, aes(x = Artist)) +
+  geom_bar(fill = "blue", color = "black", alpha = 0.7) +
+  labs(title = "count of Artist", x = "Artist", y = "Count") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+ggplot(df, aes(x = `Album Name`, y = `Spotify Streams`)) +
+  geom_point(color = "blue", alpha = 0.6) +
+  labs(title = "Album Name vs Spotify Streams", x = "Album Name", y = "Spotify Streams")
+
+ggplot(df, aes(x = `Apple Music Playlist Count`, y = `Spotify Popularity`)) +
+  geom_point(color = "blue", alpha = 0.6) +
+  labs(title = "Apple Music count vs Spotify popularity", x = "Apple music count", y = "Spotify popularity")
